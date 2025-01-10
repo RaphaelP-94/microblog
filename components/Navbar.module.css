@@ -1,0 +1,23 @@
+.nav-link[data-active='true'] {
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: rgba(255,255,255,.75);
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.right {
+    margin-left: auto;
+}
+.right a {
+    border: 1px solid darkgrey;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+}
