@@ -2,28 +2,28 @@ import prisma from "@/lib/prisma";
 
 interface Params {
   params: {
-    postId: string;
+    id: string;
   };
 }
 
-// Publish post
-// PUT /api/posts/:postId
-export async function PUT(request: Request, { params }: Params) {
-  const postId = Number(params.postId);
-  await prisma.post.update({
-    where: {
-      id: postId,
-    },
-    data: {
-      published: true,
-    },
+import { NextResponse } from 'next/server';
+// import prisma from '@/lib/prisma';
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { postId: string } }
+) {
+  const post = await prisma.post.update({
+    where: { id: parseInt(params.postId) },
+    data: { published: true }
   });
-  return new Response("success", { status: 200 });
+
+  return NextResponse.json(post);
 }
 
 // Deleting a post
 // DELETE /api/posts/:postId
-export async function DELETE(request: Request, { params }: Params) {
+export async function DELETE(request: Request, { params }: { params: { postId: string } }) {
   const postId = Number(params.postId);
   await prisma.post.delete({
     where: {
