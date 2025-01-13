@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     // Import new posts
     const imported = await prisma.post.createMany({
       data: posts,
-      skipDuplicates: true,
+    //   skipDuplicates: true,
     });
 
     return NextResponse.json({ 
