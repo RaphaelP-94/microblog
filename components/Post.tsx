@@ -1,6 +1,6 @@
 import { Post as PostType, User } from "@prisma/client";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import Image from 'next/image'
 
 interface Props {
   post: PostType & {
@@ -18,9 +18,11 @@ export default function Post({post}: Props) {
     >
       {post.imageUrl && (
         <div className="aspect-video w-full mb-4 overflow-hidden rounded-lg">
-          <img 
+          <Image 
             src={post.imageUrl} 
             alt={post.title}
+            width={200}
+            height={200}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
         </div>

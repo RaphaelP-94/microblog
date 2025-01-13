@@ -3,8 +3,7 @@
 import { Post, User } from "@prisma/client";
 import Markdown from "markdown-to-jsx";
 import { useRouter } from "next/navigation";
-
-// import { Post, User } from "@prisma/client";
+import Image from 'next/image'
 
 type Props = Post & {
   author: User | null;
@@ -17,7 +16,6 @@ export default function PostDetails({
   content,
   published,
   imageUrl,
-  viewCount
 }: Props) {
   const router = useRouter();
 
@@ -38,9 +36,11 @@ export default function PostDetails({
       <article className="bg-white rounded-xl shadow-lg overflow-hidden">
         {imageUrl && (
           <div className="w-full aspect-[21/9]">
-            <img 
+            <Image 
               src={imageUrl} 
               alt={title}
+              width={400}
+              height={300}
               className="w-full h-full object-cover"
             />
           </div>
