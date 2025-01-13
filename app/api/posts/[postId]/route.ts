@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { postId: string } }
 ) {
   const postId = parseInt(params.postId);
@@ -15,7 +15,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { postId: string } }
 ) {
   const postId = parseInt(params.postId);
