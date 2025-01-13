@@ -1,0 +1,17 @@
+
+
+.page {
+    background: white;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+}
+.input {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+.back {
+    margin-left: 1rem;
+}
