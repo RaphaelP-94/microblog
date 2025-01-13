@@ -20,9 +20,7 @@ export async function POST(request: Request) {
     });
     
   } catch (error) {
-    return NextResponse.json(
-      { success: false, error: 'Invalid JSON format' },
-      { status: 400 }
-    );
+    console.error(error);
+    return NextResponse.json({ error: 'Import failed' }, { status: 500 });
   }
 }

@@ -19,9 +19,7 @@ export async function POST(req: Request) {
       { status: 401 }
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Server error' },
-      { status: 500 }
-    );
+    console.error(error);
+    return NextResponse.json({ error: 'Login failed' }, { status: 500 });
   }
 }
