@@ -18,3 +18,5 @@ export default async function PostPage({ params }: { params: { postId: string } 
 
   return <PostDetails {...post} />;
 }
+
+// This is correct using [postId]
