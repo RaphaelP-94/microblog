@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import Post from "@/components/Post";
-import styles from "./Drafts.module.css";
+// Either use styles or remove the import
 
 export default async function DraftsPage() {
     const drafts = await prisma.post.findMany({

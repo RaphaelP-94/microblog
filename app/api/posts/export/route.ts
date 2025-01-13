@@ -1,19 +1,24 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
-export async function GET(request: Request) {
-  const apiKey = request.headers.get('x-api-key');
-  
-  if (apiKey !== process.env.EXPORT_API_KEY) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
+export async function GET() {
   const posts = await prisma.post.findMany();
   
+  // Create combined data object with posts and styles
+  const exportData = {
+    posts: posts,
+    styles: {
+      primaryColor: '#0070f3',
+      fontFamily: 'Geist, sans-serif',
+      maxWidth: '800px',
+      // Add any other style properties you want to export
+    }
+  };
+  
   const headers = {
-    'Content-Disposition': 'attachment; filename="blog-posts-export.json"',
+    'Content-Disposition': 'attachment; filename="blog-export.json"',
     'Content-Type': 'application/json',
   };
 
-  return new NextResponse(JSON.stringify(posts, null, 2), { headers });
+  return new NextResponse(JSON.stringify(exportData, null, 2), { headers });
 }
