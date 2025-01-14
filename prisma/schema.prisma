@@ -6,16 +6,16 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-}
+  directUrl = env("DIRECT_URL")
+  }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String?
-  password String
-  posts Post[]
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
 }
 
 model Post {
@@ -23,11 +23,12 @@ model Post {
   title     String
   content   String?
   published Boolean  @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
   imageUrl  String?
-  viewCount Int      @default(0)
-}// add viewcount to post
+  createdAt DateTime @default(now())
+}
+
 
 
 
