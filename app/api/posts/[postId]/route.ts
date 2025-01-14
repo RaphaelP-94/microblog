@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+type RouteContext = {
+  params: { postId: string }
+}
+
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { postId: string } }
+  context: RouteContext
 ) {
-  const postId = parseInt(params.postId);
+  const postId = parseInt(context.params.postId);
   const post = await prisma.post.update({
     where: { id: postId },
     data: { published: true }
@@ -16,9 +20,9 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { postId: string } }
+  context: RouteContext
 ) {
-  const postId = parseInt(params.postId);
+  const postId = parseInt(context.params.postId);
   const post = await prisma.post.delete({
     where: { id: postId }
   });
