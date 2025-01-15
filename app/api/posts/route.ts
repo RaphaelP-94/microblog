@@ -11,31 +11,25 @@ export async function GET(req) {
   }
 
   const posts = await prisma.post.findMany({
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      imageUrl: true,
-      createdAt: true,
-      author: {
-        select: {
-          name: true,
-          email: true
-        }
-      }
-    },
+    include: { author: true },
     orderBy: {
       createdAt: 'asc'
     }
   })
 
-  const response = NextResponse.json(posts)
+  const styledPosts = posts.map(post => ({
+    ...post,
+    title: `<h1 class="h1">${post.title}</h1>`
+  }))
+
+  const response = NextResponse.json(styledPosts)
   response.headers.set('Access-Control-Allow-Origin', '*')
   response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS')
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key')
   
   return response
 }
+
 export async function OPTIONS() {
   const response = new NextResponse(null, { status: 200 })
   response.headers.set('Access-Control-Allow-Origin', '*')
