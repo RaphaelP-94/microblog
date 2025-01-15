@@ -27,7 +27,7 @@
     "node_modules",
     ".next",
     "app/api/**/*",
-    "./app/api/posts/[postId]/route.js",
+    "app/api/posts/[postId]/route.jss",
     "./app/api/posts/[postId]/route.ts",
     ".next/types/app/api/posts[postId]/route.ts"
   ]
