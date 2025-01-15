@@ -2,8 +2,13 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: ['images.unsplash.com']
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+    ],
+  },
 }
-
 module.exports = nextConfig

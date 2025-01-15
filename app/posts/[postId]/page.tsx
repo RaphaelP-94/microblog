@@ -4,19 +4,22 @@ import PostDetails from "@/components/PostDetails";
 export default async function PostPage({ params }: { params: { postId: string } }) {
   const post = await prisma.post.findUnique({
     where: {
-      id: parseInt(params.postId)
+      id: Number(params.postId)
     },
     include: {
       author: true
     }
-  });
-
-  if (!post) {
-    return <div>Post not found</div>;
-  }
-
-
-  return <PostDetails {...post} />;
+  })
+  
+  return (
+    <>
+      {!post ? (
+        <div>Post not found</div>
+      ) : (
+        <PostDetails {...post} />
+      )}
+    </>
+  )
 }
 
 // This is correct using [postId]

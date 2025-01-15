@@ -9,7 +9,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Microblog",
-  description: "The new Next.js 13 blog",
+  description: "The new Next.js 15 blog",
+  icons: {
+    icon: '/favicon.png',
+  }
 };
 
 interface Props {

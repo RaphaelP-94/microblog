@@ -12,6 +12,7 @@ export default async function EditPost({ params }: { params: { postId: string } 
     
     const title = String(formData.get('title'));
     const content = String(formData.get('content'));
+    // const imageUrl = String(formData.get('imageUrl'));
 
     await prisma.post.update({
       where: { id: parseInt(params.postId) },

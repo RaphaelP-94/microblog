@@ -18,12 +18,12 @@ export default function Post({post}: Props) {
     >
       {post.imageUrl && (
         <div className="aspect-video w-full mb-4 overflow-hidden rounded-lg">
-          <Image 
-            src={post.imageUrl} 
+          <Image
+            src={`https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop`}
             alt={post.title}
-            width={200}
-            height={200}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            width={500}
+            height={300}
+            priority
           />
         </div>
       )}
