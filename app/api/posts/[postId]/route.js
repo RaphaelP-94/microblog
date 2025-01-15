@@ -14,7 +14,13 @@ export async function PUT(req, { params }) {
     },
   })
 
-  return NextResponse.json(post)
+  const response = NextResponse.json(post)
+  
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+  
+  return response
 }
 
 export async function DELETE(request, context) {
