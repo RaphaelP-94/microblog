@@ -11,7 +11,10 @@ export async function GET(req) {
   }
 
   const posts = await prisma.post.findMany({
-    include: { author: true }
+    include: { author: true },
+    orderBy: {
+      createdAt: 'desc'
+    }
   })
 
   const response = NextResponse.json(posts)
