@@ -11,7 +11,19 @@ export async function GET(req) {
   }
 
   const posts = await prisma.post.findMany({
-    include: { author: true },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      imageUrl: true,
+      createdAt: true,
+      author: {
+        select: {
+          name: true,
+          email: true
+        }
+      }
+    },
     orderBy: {
       createdAt: 'desc'
     }
@@ -24,7 +36,6 @@ export async function GET(req) {
   
   return response
 }
-
 export async function OPTIONS() {
   const response = new NextResponse(null, { status: 200 })
   response.headers.set('Access-Control-Allow-Origin', '*')
