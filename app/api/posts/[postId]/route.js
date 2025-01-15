@@ -16,43 +16,41 @@ export async function GET(req, { params }) {
   return response
 }
 
-export async function OPTIONS(req) {
-  const response = new NextResponse(null, { status: 200 })
+// export async function OPTIONS(req) {
+//   const response = new NextResponse(null, { status: 200 })
   
-  response.headers.set('Access-Control-Allow-Origin', 'https://9n3pm.csb.app')
-  response.headers.set('Access-Control-Allow-Methods', 'GET')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+//   response.headers.set('Access-Control-Allow-Origin', 'https://9n3pm.csb.app')
+//   response.headers.set('Access-Control-Allow-Methods', 'GET')
+//   response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
   
-  return response
-}
+//   return response
+// }
+  export async function PUT(req, { params }) {
+    const postId = params.postId
+    const body = await req.json()
 
-export async function PUT(req, { params }) {
-  const postId = params.postId
-  const body = await req.json()
+    const post = await prisma.post.update({
+      where: { id: Number(postId) },
+      data: {
+        title: body.title,
+        content: body.content,
+        published: body.published,
+      },
+    })
 
-  const post = await prisma.post.update({
-    where: { id: Number(postId) },
-    data: {
-      title: body.title,
-      content: body.content,
-      published: body.published,
-    },
-  })
-
-  const response = NextResponse.json(post)
+    const response = NextResponse.json(post)
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
   
-  response.headers.set('Access-Control-Allow-Origin', '*')
-  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
-  
-  return response
-}
+    return response
+  }
 
-export async function DELETE(request, context) {
-  const postId = parseInt(context.params.postId);
-  const post = await prisma.post.delete({
-    where: { id: postId }
-  });
+  export async function OPTIONS() {
+    const response = new NextResponse(null, { status: 200 })
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
 
-  return NextResponse.json(post);
-}
+    return response
+  }  

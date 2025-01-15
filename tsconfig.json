@@ -26,6 +26,7 @@
   "exclude": [
     "node_modules",
     ".next",
-    "app/api/**/*"
+    "app/api/**/*",
+    "./app/api/posts/[postId]/route.js"
   ]
 }
