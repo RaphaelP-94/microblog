@@ -1,17 +1,8 @@
-"use client";
+import { getServerSession } from 'next-auth'
+import Link from 'next/link'
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const router = useRouter();
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    router.push('/');
-  };
+export default async function Navbar() {
+  const session = await getServerSession()
 
   return (
     <nav className="flex justify-between items-center p-6 bg-white shadow-sm border-b sticky top-0 z-50">
@@ -22,30 +13,28 @@ export default function Navbar() {
         Blog
       </Link>
       <div className="flex gap-4 items-center">
-        {isLoggedIn ? (
-          <>
-            <Link 
-              href="/dashboard" 
-              className="px-4 py-2 rounded-lg bg-[#4682B4] text-white hover:bg-[#357599] transition-colors font-medium"
-            >
-              Dashboard
-            </Link>
-            <button 
-              onClick={handleLogout}
-              className="px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-50 transition-colors font-medium"
-            >
-              Logout
-            </button>
-          </>
+        <Link 
+          href="/dashboard" 
+          className="px-4 py-2 rounded-lg bg-[#4682B4] text-white hover:bg-[#357599] transition-colors font-medium"
+        >
+          Dashboard
+        </Link>
+        {session ? (
+          <Link 
+            href="/api/auth/signout"
+            className="px-4 py-2 rounded-lg border border-red-500 text-red-500 hover:bg-red-50 transition-colors font-medium"
+          >
+            Logout
+          </Link>
         ) : (
           <Link 
             href="/login" 
-            className="px-4 py-2 rounded-lg bg-[#4682B4] text-white hover:bg-[#357599] transition-colors font-medium"
+            className="px-4 py-2 rounded-lg bg-[#333] text-white hover:bg-[#357599] transition-colors font-medium"
           >
             Login
           </Link>
         )}
       </div>
     </nav>
-  );
+  )
 }

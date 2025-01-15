@@ -2,16 +2,21 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(req, { params }) {
+  const apiKey = req.headers.get('x-api-key')
+  
+  if (apiKey !== 'blog2025') {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const post = await prisma.post.findUnique({
-    where: { id: Number(params.postId) }
+    where: { id: Number(params.postId) },
+    include: { author: true }
   })
 
   const response = NextResponse.json(post)
-  
-  // Enable CORS
-  response.headers.set('Access-Control-Allow-Origin', 'https://9n3pm.csb.app')
-  response.headers.set('Access-Control-Allow-Methods', 'GET')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, x-api-key')
   
   return response
 }
